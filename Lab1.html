@@ -1,0 +1,33 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<title>Считаем клики</title>
+	<meta charset="utf-8">
+	<style type="text/css">
+		#demoLinks a { display: block; color: blue }
+	</style>
+</head>
+
+<body>
+	<h1>Функции JS</h1>
+	<div id="demoLinks">	
+	<script type="text/javascript">
+        let myLink = [
+            {title: "Ссылка 1", href: "", clicks: 0},
+            {title: "Ссылка 2", href: "", clicks: 0},
+            {title: "Ссылка 3", href: "", clicks: 0},
+            {title: "Ссылка 4", href: "", clicks: 0},
+            {title: "Ссылка 5", href: "", clicks: 0},
+            {title: "Ссылка 6", href: "", clicks: 0},
+        ];
+        
+        myLink
+            .forEach(el => {el.clicks = Math.round(Math.random()*99) + 1; console.log(el)})
+        myLink            
+            .filter(el => el.clicks >= 50)         
+            .sort((el1, el2) => el1.clicks > el2.clicks ? -1 : 1)                        
+            .forEach(el => {document.write('<a> ' + el.title  + ' (' + el.clicks + ')</a>')})        
+	</script>        
+	</div>
+</body>
+</html>
