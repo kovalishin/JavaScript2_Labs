@@ -29,8 +29,8 @@
                     case 3:
                         h.appendChild(l);
                         let allli = Array.from(document.querySelectorAll('li'));
-                        let last = document.getElementById('list').lastChild; 
                         allli.sort((el1, el2)=> el1.textContent > el2.textContent ? 1 : -1);
+                        let last = document.getElementById('list').lastChild;                         
                         while(last) {
                             last.parentNode.removeChild(last);
                             last = document.getElementById('list').lastChild;
