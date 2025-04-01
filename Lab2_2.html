@@ -1,0 +1,35 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<title>Часики в том же окне</title>
+	<meta charset="utf-8">
+	<style type="text/css">
+		#demoLinks a { display: block; color: blue }
+	</style>
+    <script type="text/javascript">    	
+		var timer1 = null;        
+		function clockStart() {						
+    		if (!timer1) {				
+				timer1 = setInterval(
+	        		function(){		            	
+                        let h2 = document.getElementById('clock');
+            			h2.innerHTML = "Время: " + new Date().toLocaleTimeString();                        
+        			},1000);
+			}
+		}
+		function clockStop() {	
+			window.clearInterval(timer1);
+			timer1 = null;			
+		}
+	</script>
+</head>
+
+<body>
+	<h1>Функции JS</h1>
+    <h2 id="clock">00:00:00</h2>
+	<div id="demoLinks">	
+        <a href="javascript:clockStart()">Запустить часики</a>
+	    <a href="javascript:clockStop()">Остановить часики</a>
+	</div>
+</body>
+</html>
