@@ -6,16 +6,34 @@
 	<style type="text/css">
 		#demoLinks a { display: block; color: blue }
 	</style>
-    <script type="text/javascript">
-       
+    <script type="text/javascript">    	
+		var timer1 = null;
+		var win;
+		function clockStart() {						
+    		if (!timer1) {
+				win = open("","win","width=400,height=300");
+				timer1 = setInterval(
+	        		function(){
+		            	win.document.open();
+            			win.document.write((new Date().toLocaleTimeString()));
+            			win.document.close();
+        			}
+    				,1000);
+			}
+		}
+		function clockStop() {	
+			window.clearInterval(timer1);
+			timer1 = null;
+			win.close();
+		}
 	</script>
 </head>
 
 <body>
 	<h1>Функции JS</h1>
 	<div id="demoLinks">	
-        <a href="">Запустить часики</a>
-	    <a href="">Остановить часики</a>
+        <a href="javascript:clockStart()">Запустить часики</a>
+	    <a href="javascript:clockStop()">Остановить часики</a>
 	</div>
 </body>
 </html>
