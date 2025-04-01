@@ -1,0 +1,78 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<title>Клонирование шаблона</title>
+	<meta charset="utf-8">
+	<style type="text/css">
+	</style>
+</head>
+
+<body>
+	<h1>Клонирование шаблона</h1>
+    <h2>Товары</h2>
+    <table border=1>
+        <thead>
+            <tr>
+                <th>Товар</th>
+                <th>Цена</th>
+                <th>Количество</th>
+            </tr>
+        </thead>
+        <tbody>
+
+        </tbody>
+        <tfoot>
+            <tr>
+                <td><input type="text"   id="good"></td>
+                <td><input type="number" id="price"></td>
+                <td><input type="number" id="quantity"></td>
+            </tr>
+        </tfoot>
+    </table>
+    <button onclick="addLine()">Добавить...</button>
+    <span>Total: <span id="totalElement"></span></span>
+    <template id="productRow">
+        <tr>
+            <td>Товар</td>
+            <td>Цена</td>
+            <td>Количество</td>
+        </tr>
+    </template>
+    <script type="text/javascript">
+        function addLine() {
+            if (!document.getElementById('good').value) return;
+            
+            let totalElement = document.getElementById('totalElement');
+            if (!totalElement.total) totalElement.total = 0;
+            let summa = getSumma();
+            if (!summa) return;
+            
+            let template = document.getElementById('productRow')
+            let row = template.content.cloneNode(true);
+            
+            let tbody = document.querySelector('table tbody');
+
+            let tds = row.querySelectorAll('td');
+            let inputs = document.querySelectorAll('table tfoot tr input');
+
+            for(let i = 0; i < Math.min(tds.length, inputs.length); i++ ) {
+                tds[i].textContent =  inputs[i].value;
+                inputs[i].value = '';
+            }
+                
+            tbody.appendChild(row);
+            
+            totalElement.total += summa;
+            totalElement.textContent = totalElement.total; // format
+
+        }
+
+        function getSumma() {
+            let price = parseInt(document.querySelector('table tfoot tr input#price').value);
+            let quantity = parseInt(document.querySelector('table tfoot tr input#quantity').value);
+
+            return (price && quantity) ?  price*quantity : 0;
+        }
+	</script>
+</body>
+</html>
