@@ -1,0 +1,81 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<title>Список</title>
+	<meta charset="utf-8">
+	<style type="text/css">
+		#demoLinks a { color: blue }
+        .inline {
+            display: inline;
+        }
+        .block {
+            display: block;
+        }
+	</style>
+    <script type="text/javascript">    	        
+		function addElement(t) {
+            let newElText = prompt("Введите текст нового элемента: ", "")		
+            if (newElText)
+            {
+                let l = createNewElement("LI", newElText);
+                let h = document.getElementById('list'); 
+                switch(t) {
+                    case 1:
+                        h.appendChild(l); //добавить в конец списка
+                        break;
+                    case 2:
+                        h.insertBefore(l, h.firstChild); //добавить в начало списка
+                        break;
+                    case 3:
+                        h.appendChild(l);
+                        let allli = Array.from(document.querySelectorAll('li'));
+                        let last = document.getElementById('list').lastChild; 
+                        allli.sort((el1, el2)=> el1.textContent > el2.textContent ? 1 : -1);
+                        while(last) {
+                            last.parentNode.removeChild(last);
+                            last = document.getElementById('list').lastChild;
+                        }
+                        for(let i = 0; i < allli.length; i++) {
+                            h.appendChild(allli[i]);
+                        }               
+                }                
+            }               
+		}		
+        function deleteElement() {
+            let last = document.getElementById('list').lastChild; 
+            while(last && last.nodeType != 1)
+				last = last.previousSibling            
+			if (last != null) {
+			    if (confirm('Удалить элемент ' + last.textContent)) {
+                   last.parentNode.removeChild(last);
+                }            
+            }
+            else {
+                alert ("Список пуст!")            
+            }
+        }
+        function createNewElement(tag, text)
+		{
+			var newElement = document.createElement(tag);
+			var textNode = document.createTextNode(text);
+			newElement.appendChild(textNode);
+			return newElement;
+		}
+	</script>
+</head>
+
+<body>
+	<h1>Создание элементов</h1>
+	<ul id=list>
+		<li>Живопись</li>
+		<li>Музыка</li>
+		<li>Скульптура</li>		
+	</ul>  
+	<div id="demoLinks">	
+        <a href="javascript:addElement(1)" class="inline">Добавить в конец</a>
+        <a href="javascript:addElement(2)" class="inline">Добавить в начало</a>
+        <a href="javascript:addElement(3)" class="inline">Добавить с сортировкой</a>
+	    <a href="javascript:deleteElement()" class="block">Удалить</a>
+	</div>
+</body>
+</html>
