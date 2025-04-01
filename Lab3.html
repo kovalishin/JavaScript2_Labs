@@ -1,0 +1,64 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<title>Справочник</title>
+	<meta charset="utf-8">
+	<style type="text/css">
+		#demoLinks a { display: block; color: blue }
+        .collapsed
+        {
+            display:none
+        }
+        .expanded
+        {
+            display:
+        }
+	</style>
+    <script type="text/javascript">    	        
+		function collapseList() {		
+            let allli = document.querySelectorAll('ul li ul li')            		
+            allli.forEach(l => l.classList.add('collapsed'));
+            allli.forEach(l => l.classList.remove('expanded'));
+		}
+		function expandList() {	
+            let allli = document.querySelectorAll('ul li ul li')            		
+			allli.forEach(l => l.classList.remove('collapsed'));
+            allli.forEach(l => l.classList.add('expanded'));
+		}
+	</script>
+</head>
+
+<body>
+	<h1>Свернуть/развернуть</h1>
+    <ul>
+        <li>
+            <h3>Живопись</h3>
+            <ul>
+                <li>Рембрандт</li>
+                <li>Айвазовский</li>
+                <li>Шишкин</li>
+            </ul>
+        </li>
+        <li>
+            <h3>Литература</h3>
+            <ul>
+                <li>Пушкин</li>
+                <li>Лермонтов</li>
+                <li>Гоголь</li>
+            </ul>
+        </li>
+        <li>
+            <h3>Скульптура</h3>
+            <ul>
+                <li>Роден</li>
+                <li>Микеланджело</li>
+                <li>Церетели</li>
+            </ul>
+        </li>
+    </ul>    
+	<div id="demoLinks">	
+        <a href="javascript:collapseList()">Свернуть</a>
+	    <a href="javascript:expandList()">Развернуть</a>
+	</div>
+</body>
+</html>
