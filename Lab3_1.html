@@ -1,0 +1,79 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<title>Справочник</title>
+	<meta charset="utf-8">
+	<style type="text/css">
+		#demoLinks a { display: block; color: blue }
+        .collapsed
+        {
+            display:none
+        }
+        .expanded
+        {
+            display:
+        }
+	</style>
+    <script type="text/javascript">    
+        document.onreadystatechange = () => {
+            if (document.readyState = 'interactive') {
+                let ps = document.querySelectorAll('H3');                
+                ps.forEach(p=>{
+                    p.addEventListener('dblclick', collapseExpand)
+                })
+            }
+        }      	        
+		function collapseExpand() {		
+            let list = this.nextSibling;
+            while(list) {
+                if (list.nodeType != 1) {
+                    list = list.nextSibling;
+                    break;
+                }                
+            };
+			
+            if (Array.from(list.classList).includes('collapsed')) {
+                list.classList.remove('collapsed');
+                list.classList.add('expanded');
+            } else {
+                list.classList.remove('expanded');
+                list.classList.add('collapsed');
+            }
+		}		
+	</script>
+</head>
+
+<body>
+	<h1>Свернуть/развернуть</h1>
+    <ul>
+        <li>
+            <h3>Живопись</h3>
+            <ul>
+                <li>Рембрандт</li>
+                <li>Айвазовский</li>
+                <li>Шишкин</li>
+            </ul>
+        </li>
+        <li>
+            <h3>Литература</h3>
+            <ul>
+                <li>Пушкин</li>
+                <li>Лермонтов</li>
+                <li>Гоголь</li>
+            </ul>
+        </li>
+        <li>
+            <h3>Скульптура</h3>
+            <ul>
+                <li>Роден</li>
+                <li>Микеланджело</li>
+                <li>Церетели</li>
+            </ul>
+        </li>
+    </ul>    
+	<!--<div id="demoLinks">	
+        <a href="javascript:collapseList()">Свернуть</a>
+	    <a href="javascript:expandList()">Развернуть</a>
+	</div>-->
+</body>
+</html>
