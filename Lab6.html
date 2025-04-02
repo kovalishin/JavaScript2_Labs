@@ -1,0 +1,109 @@
+<!doctype html>
+<html>
+<head>
+	<title>Фотоальбом</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <style>
+        div#photoContainer img {
+            margin : 20px;
+        }
+        #buttons {
+            text-align: center;
+        }
+        #photo {
+            margin : auto;
+            width : 640px;
+            height: 480px;
+            background-position: center center;
+            background-repeat: no-repeat;
+            transition: background-image 500ms;
+        }
+
+    </style>
+    <script type="text/javascript" src="photos.js"></script>
+	<script type="text/javascript">
+        let photoIndex = 0;
+        
+        function imagePath(name) {
+            return `url('./images/${name}')`
+        }
+        function updatePhoto() {
+            let photo = document.getElementById('photo');
+            photo.style.backgroundImage = imagePath(photos[photoIndex]);
+        }
+
+        function goPhoto(i) {
+            photoIndex += i;
+            if (photoIndex >= photos.length) photoIndex = 0;
+            if (photoIndex < 0) photoIndex = photos.length-1;
+            updatePhoto();
+        }
+        function prevPhoto() {
+            goPhoto(-1);
+        }
+        function nextPhoto() {
+            goPhoto(1);
+        }
+
+        var timer = null;
+
+        function slideShow () {
+            if (!timer) {
+                timer = setInterval(nextPhoto, 1000);
+            }
+            else {
+                window.clearInterval(timer);
+                timer = null;
+            }
+        }
+
+        addEventListener('load', ()=>{
+            let photo = document.getElementById('photo')
+            updatePhoto();
+            let c = document.getElementById('photoContainer');
+            let i = 0;
+            photos.forEach(p => {
+               let img = new Image();
+               img.src = `./images/${p}`;
+               img.width = 64;
+               img.height = 48;
+               img.id=`miniPhoto-`+(i++);
+               c.appendChild(img);
+               img.addEventListener('click', function (){
+                    photoIndex = parseInt(this.id.split('-')[1]);
+                    updatePhoto();
+               });
+            });
+
+            document.querySelectorAll('#buttons button')
+                .forEach( b=>b.addEventListener('click', ()=>eval(b.id+'()') ) );
+
+            document.getElementById('photo').addEventListener('click', function (e) {
+                // console.log(e.offsetX);
+                if (e.offsetX < this.offsetWidth / 2 )
+                    prevPhoto();
+                else
+                    nextPhoto();
+            });
+
+            document.body.addEventListener('keyup', e=>{
+                //console.log(e.keyCode);
+                if (e.ctrlKey && e.keyCode == 37) prevPhoto();
+                if (e.ctrlKey && e.keyCode == 39) nextPhoto();
+            })
+
+        });
+	</script>
+</head>
+
+<body>
+    <div id="photoContainer"></div>
+    <div id="photo"></div>
+    <div id="buttons">
+        <button id="prevPhoto">Назад</button>
+        <button id="nextPhoto">Вперед</button>
+        <button id="slideShow">Слайд-шоу</button>
+    </div>
+	
+</body>
+</html>
