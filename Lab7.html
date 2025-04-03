@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <script>
+        
+        // Промисификация
+        function getTextReader(file) {
+            return new Promise(
+                (resolve, reject) => {
+                    let reader = new FileReader();
+                    reader.onload = function (e) {
+                        if (reader.result)
+                            resolve(reader.result);
+                        else
+                            reject('Empty data')
+                    }
+                    reader.onerror = function (e) {
+                        reject(reader.error);
+                    }
+                    reader.readAsDataURL(file);
+                }
+            );
+        }
+
+
+
+        function readTextFile()
+        {
+            var f = document.getElementById("textFile");
+            if (f.files.length != 0) {
+                getTextReader(f.files[0])
+                .then( r=>{
+                    //document.getElementById("result").textContent=r
+                    document.getElementById("myImg").src=r
+                })
+                .catch( e=>document.getElementById("result").textContent=e);
+            }
+
+        }
+
+
+        
+/*         async function readTextFile() {
+            var f = document.getElementById("textFile");
+            if (f.files.length != 0) {
+                try {
+                    document.getElementById("result").innerText =  await getTextReader(f.files[0]);
+                }
+                catch(e) {
+                    document.getElementById("result").innerText =  e;
+                }
+            }
+        } */
+
+
+        // через callback 
+        /* function readTextFile()
+        {
+            var f = document.getElementById("textFile"); // input type=file
+            if (f.files.length != 0)
+            {
+                var reader = new FileReader();
+
+                // callback function
+                reader.onload = function (e) { // end async read
+                    var pre = document.getElementById("result");
+                    pre.textContent = this.result; // reader.result               
+                    var img = document.getElementById("myImg");
+                    img.src = this.result;                                   
+                }
+                
+                // read image
+                reader.readAsDataURL(f.files[0]);
+
+            }
+
+        } */
+        
+ 
+    </script>
+    <style>
+        span {
+            background:yellow;
+        
+        }
+
+    </style>
+</head>
+<body>
+    <h1>File API</h1>
+    <input type="file" id="textFile" onchange="readTextFile()">
+    
+    <pre id="result">
+        
+    </pre>
+    <div id="imgContainer">
+        <img id="myImg">
+    </div>
+    
+</body>
+</html>
