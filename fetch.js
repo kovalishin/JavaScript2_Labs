@@ -78,7 +78,7 @@ async function sendData() {
         body   : JSON.stringify(person)
     })
     if (response.ok) {
-        console.log(response.text());
+        //console.log(response.text());
     } 
 }
 
